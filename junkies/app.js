@@ -8,7 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
-
+const mongoose = require('mongoose');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -26,6 +26,12 @@ app.use('/users', usersRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+
+mongoose.connect('mongodb://localhost:27017/DBJunkies',{ useNewUrlParser: true }).then(()=>{
+  console.log("conectado a mongodb")
+});
+
 
 // error handler
 app.use(function(err, req, res, next) {
